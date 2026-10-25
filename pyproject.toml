@@ -1,0 +1,64 @@
+[project]
+name = "llm-benchmark"
+version = "0.1.0"
+requires-python = ">=3.14"
+dependencies = [
+    "matplotlib>=3.11.2",
+]
+
+[dependency-groups]
+dev = [
+    "basedpyright>=1.40.2",
+    "mypy>=2.4.0",
+    "ruff>=0.17.2",
+]
+
+[tool.uv]
+# Use the uv-managed standalone CPython: the Nix system interpreter's RUNPATH does
+# not expose libstdc++/libz to the numpy and matplotlib extension modules.
+python-preference = "managed"
+
+[tool.ruff]
+line-length = 100
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "B", "UP", "SIM", "ARG", "PTH", "RUF"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.mypy]
+python_version = "3.14"
+strict = true
+warn_unreachable = true
+files = ["bench_llama_server.py", "plot_llama_server_bench.py"]
+
+[tool.basedpyright]
+include = ["bench_llama_server.py", "plot_llama_server_bench.py"]
+pythonVersion = "3.14"
+typeCheckingMode = "strict"
+# Extra checks on top of strict, covering the gaps the ruff rules cannot see.
+reportAny = true
+reportExplicitAny = true
+reportIgnoreCommentWithoutRule = true
+reportImplicitOverride = true
+reportImplicitStringConcatenation = true
+reportInvalidCast = true
+reportMissingModuleSource = true
+reportPrivateLocalImportUsage = true
+reportPropertyTypeMismatch = true
+reportUndefinedVariable = true
+reportUnnecessaryCast = true
+reportUnnecessaryComparison = true
+reportUnnecessaryContains = true
+reportUnnecessaryIsInstance = true
+reportUnnecessaryTypeIgnoreComment = true
+reportUnusedExcept = true
+reportUnusedImport = true
+reportUnusedVariable = true
+reportUnreachable = true
+# matplotlib and numpy ship partial stubs that leak Unknown into their signatures.
+reportUnknownMemberType = false
+reportMissingTypeStubs = false

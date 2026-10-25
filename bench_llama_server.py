@@ -1,3 +1,4 @@
+#!/usr/bin/env -S uv run
 """Benchmark llama-server prefill and generation throughput across context depths.
 
 One invocation targets one running llama-server and one model preset. It measures
